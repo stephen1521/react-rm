@@ -1,25 +1,54 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import { useState, useEffect } from 'react';
+import Header from './components/Header';
+import Card from './components/Card';
+
+function RMApi (props) {
+	const [error, setError] = useState(null);
+	const [isLoaded, setIsLoaded] = useState(false);
+	const [items, setItems] = useState([]);
+	useEffect(() => {
+		fetch(props.url)
+		  .then(res => res.json())
+		  .then(
+			(result) => {
+			  setIsLoaded(true);
+			  setItems(result);
+			},
+			(error) => {
+			  setIsLoaded(true);
+			  setError(error);
+			}
+		  )
+	  }, [])
+	  if (error) {
+		return <div>Error: {error.message}</div>;
+	  } else if (!isLoaded) {
+		return <div>Loading...</div>;
+	  } else {
+		// return (
+		//   <div>
+		// 	<Card character={items.results[0]}/>
+		//   </div>
+		// );
+		const cards = items.results.map((character, index) => {
+			return (
+				<Card key={index} character={character}/>
+			)
+		})
+		return <div className='d-flex flex-wrap justify-content-center align-items-center gap-3 me-5 ms-5 mt-5'>{cards}</div>
+	  }
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<div>
+			<Header />
+			<RMApi url='https://rickandmortyapi.com/api/character'/>
+		</div>
+	)
 }
 
 export default App;
