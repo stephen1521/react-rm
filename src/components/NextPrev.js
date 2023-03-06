@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import RMApi from './RMApi';
 
-function NextPrev () {
-    const [url, setUrl] = useState('https://rickandmortyapi.com/api/character');
+function NextPrev (props) {
+    const [url, setUrl] = useState(props.url);
     const handleNextPage = async () => {
         let data = await fetch(url);
         let parsedData = await data.json();
