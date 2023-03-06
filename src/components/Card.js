@@ -32,7 +32,7 @@ function CardBack(props){
 function CardDisplay(props) {
     const { character } = props;
     const [flip, setFlip] = useState(false);
-    function handleToggle(){
+    const handleToggle = () =>{
         setFlip((current) => !current);
     };
     if(!flip){
@@ -41,7 +41,7 @@ function CardDisplay(props) {
                 <CardFront character={character}/>
             </div>
         )
-    } else if(flip){
+    } else if (flip){
         return (
             <div onClick={handleToggle}>
                 <CardBack character={character}/>
