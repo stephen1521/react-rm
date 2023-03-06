@@ -30,10 +30,8 @@ function RMApi (props) {
 		)
 		})
 		return (
-            <div>
-                <div className='d-flex flex-wrap justify-content-center align-items-center gap-3 me-5 ms-5 mt-3 mb-4'>
-                        {cards}</div>
-            </div>
+            <div className='d-flex flex-wrap justify-content-center align-items-center gap-3 me-5 ms-5 mt-3 mb-4'>
+                    {cards}</div>
         )
 	}
 }
